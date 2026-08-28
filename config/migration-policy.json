@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "defaultTarget": "database",
+  "requireIsolatedTarget": true,
+  "requireBehavioralValidation": true,
+  "allowSourceWrites": false,
+  "allowDestructiveTargetActions": false,
+  "allowProductionCutover": false,
+  "maxRemediationAttempts": 3,
+  "retry": {
+    "count": 3,
+    "initialDelaySeconds": 5,
+    "backoffMultiplier": 2
+  },
+  "objectOrder": [
+    "schema",
+    "type",
+    "table",
+    "sequence",
+    "constraint",
+    "index",
+    "view",
+    "procedure",
+    "function",
+    "trigger"
+  ],
+  "requiredEvidence": [
+    "sourceDefinition",
+    "targetDefinition",
+    "dependencyCheck",
+    "compileResult",
+    "validationResult"
+  ]
+}

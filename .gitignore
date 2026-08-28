@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+
+migration-artifacts/
+logs/
+*.log
+*.bak
+*.dump
+*.dmp
+*.sqlplan
+
