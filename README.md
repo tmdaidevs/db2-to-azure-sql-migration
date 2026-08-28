@@ -22,8 +22,11 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/rollback-plan.ps1` - creates a non-destructive rollback plan
 - `scripts/invoke-ssma.ps1` - captures an explicitly supplied SSMA Console invocation
 - `scripts/invoke-sql.ps1` - guarded SQL execution hook
+- `scripts/invoke-db2.ps1` - read-only DB2 validation adapter using the configured provider
 - `scripts/generate-report.ps1` - creates a consolidated migration evidence report
+- `scripts/compare-results.ps1` - compares normalized source and target results
 - `tests/fixtures/` - synthetic source/target validation fixtures
+- `config/ServersConnectionFile.example.xml` - sanitized SSMA server-file template
 - `scripts/run-migration.ps1` - safe offline/plan entry point
 - `input/` - customer drop zone for SSMA projects and reports
 

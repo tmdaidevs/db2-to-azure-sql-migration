@@ -4,8 +4,10 @@ param(
     [string]$SqlFile,
     [Parameter()]
     [string]$Root = (Split-Path $PSScriptRoot -Parent),
+    [switch]$WhatIf,
+    [switch]$Execute,
     [Parameter()]
-    [switch]$WhatIf
+    [string]$ConfirmTarget
 )
 
 $ErrorActionPreference = 'Stop'
@@ -27,5 +29,40 @@ if ($WhatIf) {
     exit 0
 }
 
-throw 'Direct SQL execution is disabled in the first version until authentication and target parameters are explicitly wired and validated.'
+if (-not $Execute) {
+    throw 'SQL execution is disabled by default. Use -Execute only after reviewing the SQL and target settings.'
+}
 
+$values = @{}
+foreach ($line in Get-Content -LiteralPath $envFile) {
+    if ($line -match '^\s*([A-Z][A-Z0-9_]*)=(.*)$') { $values[$matches[1]] = $matches[2] }
+}
+$server = $values['AZURE_SQL_SERVER']
+$database = $values['AZURE_SQL_DATABASE']
+if ([string]::IsNullOrWhiteSpace($server) -or [string]::IsNullOrWhiteSpace($database)) {
+    throw 'AZURE_SQL_SERVER and AZURE_SQL_DATABASE are required for connected execution.'
+}
+if ($ConfirmTarget -ne "$server/$database") {
+    throw "Target confirmation mismatch. Re-run with -ConfirmTarget '$server/$database'."
+}
+
+$arguments = @('-S', $server, '-d', $database, '-b', '-l', '30', '-i', $SqlFile)
+$auth = ($values['AZURE_SQL_AUTH'] ?? 'entra').ToLowerInvariant()
+if ($auth -eq 'entra') {
+    $arguments += '-G'
+} elseif ($auth -eq 'sql') {
+    if ([string]::IsNullOrWhiteSpace($values['AZURE_SQL_USER']) -or [string]::IsNullOrWhiteSpace($values['AZURE_SQL_PASSWORD'])) {
+        throw 'SQL authentication requires AZURE_SQL_USER and AZURE_SQL_PASSWORD.'
+    }
+    $arguments += @('-U', $values['AZURE_SQL_USER'])
+    $env:SQLCMDPASSWORD = $values['AZURE_SQL_PASSWORD']
+} else {
+    throw "Unsupported AZURE_SQL_AUTH: $auth"
+}
+
+try {
+    & $sqlcmd.Source @arguments
+    if ($LASTEXITCODE -ne 0) { throw "sqlcmd failed with exit code $LASTEXITCODE." }
+} finally {
+    if (Test-Path Env:SQLCMDPASSWORD) { Remove-Item Env:SQLCMDPASSWORD }
+}

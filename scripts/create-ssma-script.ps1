@@ -48,10 +48,12 @@ $commands += '<close-project if-modified="save" />'
 
 $xml = @"
 <?xml version="1.0" encoding="utf-8"?>
-<ssma-script>
-  <!-- Review server names, target, object scope, and destructive policy before execution. -->
-  $($commands -join "`r`n  ")
-</ssma-script>
+<ssma-script-file>
+  <script-commands>
+    <!-- Review server names, target, object scope, and destructive policy before execution. -->
+    $($commands -join "`r`n    ")
+  </script-commands>
+</ssma-script-file>
 "@
 $xml | Set-Content -LiteralPath $scriptPath -Encoding utf8
 [pscustomobject]@{
@@ -62,4 +64,3 @@ $xml | Set-Content -LiteralPath $scriptPath -Encoding utf8
     TargetServerName = $TargetServerName
     RequiresReview = $true
 } | ConvertTo-Json
-

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<server-connection-file>
+  <!-- Fill locally only. Do not commit credentials or customer hostnames. -->
+  <server name="DB2_SOURCE">
+    <db2-server>
+      <host></host>
+      <port>50000</port>
+      <database></database>
+      <provider>ole-db</provider>
+    </db2-server>
+  </server>
+  <server name="AZURE_SQL_TARGET">
+    <sql-server>
+      <server></server>
+      <database></database>
+      <authentication>entra</authentication>
+    </sql-server>
+  </server>
+</server-connection-file>
+
