@@ -239,6 +239,21 @@ Stop and report a blocker when:
 
 The skill may continue with independent objects, but it must not label the migration complete while blocked objects or unvalidated data remain.
 
+## Capability-gap and self-optimization workflow
+
+When a request is not directly supported, do not simply stop. Start a capability-gap workflow:
+
+1. Describe the requested outcome and the exact unsupported capability.
+2. Search the current skill, scripts, policy, input artifacts, and available runtime tools for an existing path.
+3. Classify the gap as configuration, missing adapter, missing parser, missing conversion pattern, missing validator, unsupported target feature, or unsafe/forbidden operation.
+4. Determine whether the gap can be fulfilled without inventing source semantics, weakening safety gates, exposing secrets, or changing production state.
+5. Create a scoped extension proposal in `migration-artifacts/capability-gaps/<id>/` containing the gap, evidence, proposed workflow, files to change, risks, tests, and rollback.
+6. Implement the smallest reusable extension when it is safe and within the package scope. Otherwise ask for the specific missing decision or prerequisite in chat.
+7. Run policy validation, script syntax checks, fixture tests, and the narrowest relevant workflow test.
+8. Record the improvement in the manifest and final report, including whether it was applied, deferred, or rejected.
+
+Self-optimization is bounded: the skill may add reusable adapters, parsers, patterns, validators, and documentation, but must not silently remove validation, broaden permissions, disable confirmations, change target policy, or modify its own governing instructions without an auditable proposal and explicit approval. Never use generated code to grant itself credentials or access.
+
 ## Project prioritization
 
 When multiple schemas or projects are supplied:

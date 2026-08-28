@@ -25,6 +25,7 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/invoke-db2.ps1` - read-only DB2 validation adapter using the configured provider
 - `scripts/generate-report.ps1` - creates a consolidated migration evidence report
 - `scripts/compare-results.ps1` - compares normalized source and target results
+- `scripts/capability-gap.ps1` - records unsupported capabilities and bounded extension proposals
 - `scripts/run-sanitized-pilot.ps1` - runs the complete workflow against synthetic fixtures
 - `tests/fixtures/` - synthetic source/target validation fixtures
 - `config/ServersConnectionFile.example.xml` - sanitized SSMA server-file template
