@@ -25,6 +25,7 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/invoke-db2.ps1` - read-only DB2 validation adapter using the configured provider
 - `scripts/generate-report.ps1` - creates a consolidated migration evidence report
 - `scripts/compare-results.ps1` - compares normalized source and target results
+- `scripts/run-sanitized-pilot.ps1` - runs the complete workflow against synthetic fixtures
 - `tests/fixtures/` - synthetic source/target validation fixtures
 - `config/ServersConnectionFile.example.xml` - sanitized SSMA server-file template
 - `scripts/run-migration.ps1` - safe offline/plan entry point
@@ -71,6 +72,14 @@ To analyze the supplied project without connecting:
 ```powershell
 .\scripts\run-migration.ps1 -Offline
 ```
+
+To exercise the complete workflow without customer systems or data:
+
+```powershell
+.\scripts\run-migration.ps1 -SanitizedPilot
+```
+
+The sanitized pilot is the executable regression path for the package. It proves orchestration and evidence handling, but it does not prove connectivity or behavior against a real DB2 or Azure SQL system.
 
 To create a local configuration interactively:
 

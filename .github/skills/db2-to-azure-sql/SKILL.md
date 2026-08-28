@@ -255,6 +255,8 @@ When multiple schemas or projects are supplied:
 
 Report success only when every in-scope object has a final status, no blocking failures remain, target objects compile, data reconciliation passes, required behavior and performance tests pass, and cutover requirements are satisfied.
 
+For a sanitized or offline run, report completion only for the simulated scope and label it `simulated`; never present it as proof of live DB2/Azure SQL compatibility or data migration.
+
 Always produce:
 
 - sanitized migration manifest
