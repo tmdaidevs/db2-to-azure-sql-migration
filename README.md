@@ -55,9 +55,9 @@ The skill scans recursively below `input/`. SSMA output must not be placed insid
 
 ## Current behavior
 
-The first version safely supports offline discovery and planning. It does not claim to perform a connected migration yet. Connected execution must be added only after the SSMA Console installation, script-file format, Azure target, authentication, and validation database strategy are confirmed.
+The package supports offline discovery and planning. For a connected migration, the GitHub skill asks for missing runtime details interactively in chat, writes the answers to a local ignored `.env`, validates the SSMA/provider/Azure prerequisites, and then proceeds only when the required gates pass.
 
-The SSMA wrapper intentionally requires the caller to provide the installed executable, script file, and arguments. This avoids embedding unverified SSMA command-line assumptions in the package.
+The SSMA wrapper uses the executable, provider, server names, and policy collected during chat intake. It still refuses to guess unverified SSMA command-line assumptions.
 
 To generate a reviewable SSMA script plan after the customer provides the source and target server names:
 

@@ -18,7 +18,7 @@ Act as a migration operator, not an AI-only code generator. Use SQL Server Migra
 
 ## Interactive intake
 
-Before a connected migration, ask one question at a time and persist answers locally in `.env`. Create `.env.example` with names only and ensure `.env` is git-ignored.
+At the start of a connected migration, ask one question at a time in chat and persist the answers locally in `.env`. Do not wait for a pre-existing `.env`; create it from the chat answers. Create `.env.example` with names only and ensure `.env` is git-ignored.
 
 Collect:
 
@@ -33,7 +33,7 @@ Collect:
 - Golden test cases, reconciliation queries, critical objects, performance thresholds, and rollback requirements
 - Explicit authorization for destructive target actions and production cutover
 
-Validate required values and connectivity before migration. Use managed identity or an approved secret store where available; do not place credentials in command arguments, reports, or generated SQL.
+Validate required values and connectivity before migration. If a required value is missing, ask for it in chat at the point it is needed. Use managed identity or an approved secret store where available; do not place credentials in command arguments, reports, or generated SQL.
 
 ## Artifact discovery and manifest
 
