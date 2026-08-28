@@ -1,0 +1,36 @@
+name: Migration package quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $errors = @()
+          Get-ChildItem scripts -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
+            if ($parseErrors.Count) { $errors += "$($_.Name): $($parseErrors -join '; ')" }
+          }
+          if ($errors.Count) { $errors | Write-Error; exit 1 }
+      - name: Validate policy and sanitized fixtures
+        shell: pwsh
+        run: |
+          .\scripts\validate-policy.ps1
+          .\scripts\validate-fixtures.ps1
+      - name: Secret scan
+        shell: pwsh
+        run: |
+          $matches = Get-ChildItem -Recurse -File | Select-String -Pattern '(?i)(password|secret|token|connectionstring)\s*[:=]\s*[^#\s]+'
+          $matches = @($matches | Where-Object { $_.Path -notmatch '\.env\.example$' })
+          if ($matches.Count) { $matches | Format-List; exit 1 }

@@ -56,5 +56,6 @@ foreach ($report in $reports) {
 }
 
 $output = Join-Path $artifactDir 'ssma-report-inventory.json'
-$objects | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $output -Encoding utf8
+$json = ConvertTo-Json -InputObject @($objects) -Depth 5
+$json | Set-Content -LiteralPath $output -Encoding utf8
 Get-Content -LiteralPath $output -Raw

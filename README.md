@@ -14,6 +14,8 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/build-manifest.ps1` - creates an object manifest from available source artifacts
 - `scripts/build-dependencies.ps1` - creates a conservative dependency graph
 - `scripts/validate-policy.ps1` - validates migration safety policy
+- `scripts/detect-runtime.ps1` - detects SSMA, provider, and SQL client prerequisites
+- `scripts/check-compatibility.ps1` - screens source artifacts for target-platform risks
 - `scripts/create-ssma-script.ps1` - generates a reviewable SSMA script plan
 - `scripts/new-run.ps1` - creates a run-specific artifact directory
 - `scripts/write-state.ps1` - persists resumable migration state
@@ -21,6 +23,7 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/invoke-ssma.ps1` - captures an explicitly supplied SSMA Console invocation
 - `scripts/invoke-sql.ps1` - guarded SQL execution hook
 - `scripts/generate-report.ps1` - creates a consolidated migration evidence report
+- `tests/fixtures/` - synthetic source/target validation fixtures
 - `scripts/run-migration.ps1` - safe offline/plan entry point
 - `input/` - customer drop zone for SSMA projects and reports
 

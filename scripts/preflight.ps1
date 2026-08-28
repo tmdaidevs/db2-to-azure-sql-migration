@@ -30,7 +30,11 @@ $projectFiles = @(Get-ChildItem -LiteralPath $inputDir -Recurse -File -Filter '*
 $reportFiles = @(Get-ChildItem -LiteralPath $inputDir -Recurse -File -Filter 'report.xml' -ErrorAction SilentlyContinue)
 
 if ($projectFiles.Count -eq 0 -and $reportFiles.Count -eq 0) {
-    throw "No SSMA project or report.xml was found below $Root."
+    if ($AllowOffline) {
+        Write-Warning "No SSMA project or report.xml was found below $inputDir. The sanitized package is ready for a customer upload."
+    } else {
+        throw "No SSMA project or report.xml was found below $inputDir."
+    }
 }
 
 $artifactDir = Join-Path $Root 'migration-artifacts'
