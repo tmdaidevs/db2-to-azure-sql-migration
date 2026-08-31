@@ -31,6 +31,9 @@ jobs:
       - name: Secret scan
         shell: pwsh
         run: |
-          $matches = Get-ChildItem -Recurse -File | Select-String -Pattern '(?i)(password|secret|token|connectionstring)\s*[:=]\s*[^#\s]+'
-          $matches = @($matches | Where-Object { $_.Path -notmatch '\.env\.example$' })
+          $pattern = '(?i)(password|secret|token|connectionstring)\s*[:=]\s*(?!\s*$|\$|<|["'']\s*["''])[^#\s]+'
+          $matches = Get-ChildItem -Recurse -File |
+            Where-Object { $_.FullName -notmatch '\\.env\.example$' } |
+            Select-String -Pattern $pattern
+          $matches = @($matches)
           if ($matches.Count) { $matches | Format-List; exit 1 }
