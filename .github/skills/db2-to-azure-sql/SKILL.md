@@ -22,6 +22,55 @@ Use `scripts/orchestrate.ps1` as the stateful controller. It is the normal entry
 
 At the start of a connected migration, ask one question at a time in chat and persist the answers locally in `.env`. Do not wait for a pre-existing `.env`; create it from the chat answers. Create `.env.example` with names only and ensure `.env` is git-ignored.
 
+## First-run onboarding tutorial
+
+When the user first invokes the skill, explain that the migration is guided in phases and that the user can stop and resume safely. Do not ask all questions in one message. Complete each phase before moving to the next and show a short progress marker such as `Onboarding 2/7`.
+
+### Onboarding 1/7 — Package and scope
+
+1. Confirm the migration package location.
+2. Confirm that SSMA output has been uploaded below `input/`.
+3. Discover all SSMA projects and schemas.
+4. Ask which projects or schemas are in scope.
+5. Explain that the original files remain unchanged and generated files go to `migration-artifacts/`.
+
+If no SSMA project is present, guide the user to upload the complete SSMA project before connected execution.
+
+### Onboarding 2/7 — DB2 source
+
+Ask for DB2 platform and version, host, port, database, schema scope, code page, locale, timezone, and read-only authorization. Ask which provider SSMA uses: Db2 Client Provider or Microsoft OLE DB Provider for Db2. Ask for credentials through the approved secure mechanism, never in ordinary chat text if a secret reference is available.
+
+Validate network reachability, provider installation, metadata permissions, and source read-only status. Run a harmless read-only test before continuing.
+
+### Onboarding 3/7 — Azure SQL target
+
+Ask whether the target is Azure SQL Database or Managed Instance, then ask for server, database, region, compatibility level, authentication method, network path, and isolated staging-target authorization. Run compatibility screening and explain any Managed Instance recommendation. Require expected-target confirmation before executing SQL.
+
+### Onboarding 4/7 — Migration policy
+
+Explain the difference between offline analysis, staging migration, rehearsal, and production. Ask for data movement strategy, downtime window or synchronization requirement, batch size, timeout, retry count, parallelism, compatibility-helper policy, and whether destructive target actions are allowed. Default destructive actions, source writes, and production cutover to disabled.
+
+### Onboarding 5/7 — Validation
+
+Ask for critical objects, customer-approved test cases, source/target queries, reconciliation queries, performance thresholds, and expected handling for nulls, dates, decimals, Unicode, LOBs, identity values, sequences, and transaction behavior. If no live source is available, explain that only static validation is possible and do not claim full acceptance.
+
+### Onboarding 6/7 — Staged execution
+
+Show the planned sequence and request confirmation to start staging:
+
+```text
+preflight → assess → convert → baseline deploy → remediate
+→ compile → behavior test → data migrate → reconcile
+```
+
+Before each irreversible or externally visible stage, display the target, scope, policy, and expected effect. Pause on blockers with an exact remediation request.
+
+### Onboarding 7/7 — Cutover
+
+After staging succeeds, present the evidence summary, unresolved risks, rollback plan, downtime window, and production target. Production cutover is never implied by staging success. Ask for the exact confirmation required by `confirm-cutover.ps1` only when the user explicitly requests cutover.
+
+Persist onboarding phase, answered fields, validation results, and the next question in local state. Never persist secret values in chat history, reports, manifests, or generated SQL.
+
 Collect:
 
 - DB2 platform and version: LUW, z/OS, or iSeries

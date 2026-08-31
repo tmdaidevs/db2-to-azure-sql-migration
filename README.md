@@ -17,6 +17,7 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/validate-policy.ps1` - validates migration safety policy
 - `scripts/detect-runtime.ps1` - detects SSMA, provider, and SQL client prerequisites
 - `scripts/validate-env.ps1` - validates chat-collected runtime configuration
+- `scripts/onboarding-status.ps1` - shows the next onboarding phase without secrets
 - `scripts/acquire-run-lock.ps1` - prevents overlapping migration runs
 - `scripts/assert-target.ps1` - verifies the approved Azure SQL target identity
 - `scripts/confirm-cutover.ps1` - requires validated staging and explicit cutover confirmation
@@ -44,6 +45,7 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `config/ServersConnectionFile.example.xml` - sanitized SSMA server-file template
 - `scripts/run-migration.ps1` - safe offline/plan entry point
 - `input/` - customer drop zone for SSMA projects and reports
+- `ONBOARDING.md` - first-run guided tutorial
 
 ## Where to place SSMA output
 
