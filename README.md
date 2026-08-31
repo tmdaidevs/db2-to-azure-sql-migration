@@ -23,6 +23,13 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `scripts/check-compatibility.ps1` - screens source artifacts for target-platform risks
 - `scripts/create-ssma-script.ps1` - generates a reviewable SSMA script plan
 - `scripts/validate-ssma-script.ps1` - validates SSMA script structure and commands
+- `scripts/run-ssma-stage.ps1` - executes an approved SSMA stage
+- `scripts/extract-db2-metadata.ps1` - prepares read-only DB2 metadata extraction
+- `scripts/validate-connected-runtime.ps1` - validates connected chat-intake prerequisites
+- `scripts/deploy-baseline.ps1` - validates and deploys the SSMA baseline
+- `scripts/prepare-remediation-bundle.ps1` - prepares per-object AI remediation context
+- `scripts/run-validation-contract.ps1` - validates a source/target test contract
+- `scripts/migrate-data.ps1` - validates and runs the approved SSMA data stage
 - `scripts/new-run.ps1` - creates a run-specific artifact directory
 - `scripts/write-state.ps1` - persists resumable migration state
 - `scripts/rollback-plan.ps1` - creates a non-destructive rollback plan
