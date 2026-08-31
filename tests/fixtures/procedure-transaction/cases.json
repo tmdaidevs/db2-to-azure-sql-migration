@@ -1,0 +1,3 @@
+[
+  { "messageId": 1, "expectedEffects": { "updatedRows": 1, "processed": 1 } }
+]

@@ -9,6 +9,12 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+if ($env:DB2_MIGRATION_ORCHESTRATED -ne '1') {
+    $env:DB2_MIGRATION_ORCHESTRATED = '1'
+    & (Join-Path $PSScriptRoot 'orchestrate.ps1') -Root $Root -Offline:$Offline -PlanOnly:$PlanOnly -SanitizedPilot:$SanitizedPilot
+    exit $LASTEXITCODE
+}
+
 & (Join-Path $PSScriptRoot 'write-state.ps1') -Root $Root -Phase PREFLIGHT -Message 'Starting migration package preflight.'
 & (Join-Path $PSScriptRoot 'validate-policy.ps1') -Root $Root | Out-Null
 & (Join-Path $PSScriptRoot 'preflight.ps1') -Root $Root -AllowOffline:($Offline -or $PlanOnly -or $SanitizedPilot)

@@ -56,6 +56,7 @@ $xml = @"
 </ssma-script-file>
 "@
 $xml | Set-Content -LiteralPath $scriptPath -Encoding utf8
+$xmlDocument = [xml]$xml
 [pscustomobject]@{
     Script = $scriptPath
     Project = $project.FullName

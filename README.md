@@ -11,12 +11,18 @@ This folder is the input package for the `db2-to-azure-sql` GitHub skill. The sk
 - `validation/` - customer-approved validation query/test inputs
 - `scripts/preflight.ps1` - validates the folder and required environment
 - `scripts/analyze-ssma.ps1` - inventories SSMA report files
+- `scripts/parse-reports.ps1` - extracts detailed assessment and diagnostic records
 - `scripts/build-manifest.ps1` - creates an object manifest from available source artifacts
 - `scripts/build-dependencies.ps1` - creates a conservative dependency graph
 - `scripts/validate-policy.ps1` - validates migration safety policy
 - `scripts/detect-runtime.ps1` - detects SSMA, provider, and SQL client prerequisites
+- `scripts/validate-env.ps1` - validates chat-collected runtime configuration
+- `scripts/acquire-run-lock.ps1` - prevents overlapping migration runs
+- `scripts/assert-target.ps1` - verifies the approved Azure SQL target identity
+- `scripts/confirm-cutover.ps1` - requires validated staging and explicit cutover confirmation
 - `scripts/check-compatibility.ps1` - screens source artifacts for target-platform risks
 - `scripts/create-ssma-script.ps1` - generates a reviewable SSMA script plan
+- `scripts/validate-ssma-script.ps1` - validates SSMA script structure and commands
 - `scripts/new-run.ps1` - creates a run-specific artifact directory
 - `scripts/write-state.ps1` - persists resumable migration state
 - `scripts/rollback-plan.ps1` - creates a non-destructive rollback plan

@@ -1,0 +1,3 @@
+[
+  { "decisionRequired": true, "reason": "Array representation changes the application contract." }
+]

@@ -7,6 +7,8 @@ description: Autonomously analyze an SSMA for Db2 project, remediate unsupported
 
 Act as a migration operator, not an AI-only code generator. Use SQL Server Migration Assistant (SSMA) as the deterministic migration engine. Use AI only to remediate objects that SSMA cannot safely convert. Treat `input/` as the customer drop zone: discover complete SSMA projects below it and write generated results only to `migration-artifacts/`.
 
+Use `scripts/orchestrate.ps1` as the stateful controller. It is the normal entry point for a run; it invokes validation, discovery, manifest, dependency, compatibility, and evidence stages and persists phase state after each stage.
+
 ## Operating boundary
 
 - Work only inside the user-provided migration folder and explicitly approved temporary locations.

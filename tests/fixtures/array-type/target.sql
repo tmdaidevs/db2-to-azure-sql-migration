@@ -1,0 +1,1 @@
+-- Requires an approved target representation (JSON, table type, or normalized table).

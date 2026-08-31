@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "object": "SAMPLE.FN_FORMAT_TIMESTAMP",
+  "type": "function",
+  "sourceQuery": "validation/source-query.sql",
+  "targetQuery": "validation/target-query.sql",
+  "comparison": {
+    "mode": "exact",
+    "ignoreColumnOrder": true,
+    "ignoreRowOrder": true,
+    "numericTolerance": 0
+  },
+  "performance": {
+    "enabled": false,
+    "maxRegressionPercent": 20
+  }
+}

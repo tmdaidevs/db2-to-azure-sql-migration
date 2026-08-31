@@ -15,3 +15,5 @@ Recommended assets:
 Every query or test case should state its expected result or comparison rule and identify the source and target objects it covers.
 
 The sample result files are synthetic fixtures for the result-comparison harness and contain no customer data. Replace them only with approved, sanitized test outputs.
+
+Use `contract.example.json` as the shape for object-level source/target validation contracts. Contracts must be approved before connected execution.
